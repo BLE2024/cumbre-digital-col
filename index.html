@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cumbre Digital Col 2026 - Registro</title>
+<style>
+  /* Reinicio básico de estilos */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --color-fondo: #0d1117;
+    --color-fondo-tarjeta: #161b22;
+    --color-borde: #30363d;
+    --color-texto: #e6edf3;
+    --color-texto-secundario: #8b949e;
+    --color-acento: #3b82f6;
+    --color-acento-hover: #2563eb;
+    --color-error: #f85149;
+    --color-exito: #3fb950;
+  }
+
+  body {
+    background: linear-gradient(160deg, #0d1117 0%, #101826 100%);
+    color: var(--color-texto);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .contenedor {
+    width: 100%;
+    max-width: 520px;
+  }
+
+  .logo {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .logo h1 {
+    font-size: 1.9rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+
+  .logo h1 span {
+    color: var(--color-acento);
+  }
+
+  .logo p {
+    color: var(--color-texto-secundario);
+    margin-top: 6px;
+    font-size: 0.95rem;
+  }
+
+  .tarjeta {
+    background: var(--color-fondo-tarjeta);
+    border: 1px solid var(--color-borde);
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  .campo {
+    margin-bottom: 20px;
+  }
+
+  .campo label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--color-texto);
+  }
+
+  .campo input,
+  .campo select {
+    width: 100%;
+    padding: 12px 14px;
+    background: #0d1117;
+    border: 1px solid var(--color-borde);
+    border-radius: 8px;
+    color: var(--color-texto);
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .campo input:focus,
+  .campo select:focus {
+    border-color: var(--color-acento);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+  }
+
+  .campo input.invalido,
+  .campo select.invalido {
+    border-color: var(--color-error);
+  }
+
+  .mensaje-error {
+    color: var(--color-error);
+    font-size: 0.82rem;
+    margin-top: 6px;
+    min-height: 16px;
+  }
+
+  .btn-enviar {
+    width: 100%;
+    padding: 14px;
+    background: var(--color-acento);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .btn-enviar:hover {
+    background: var(--color-acento-hover);
+  }
+
+  .btn-enviar:active {
+    transform: scale(0.98);
+  }
+
+  /* Pantalla de confirmación */
+  .confirmacion {
+    text-align: center;
+  }
+
+  .confirmacion .icono-exito {
+    width: 64px;
+    height: 64px;
+    background: rgba(63, 185, 80, 0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 2rem;
+    color: var(--color-exito);
+  }
+
+  .confirmacion h2 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+  }
+
+  .confirmacion .numero-registro {
+    display: inline-block;
+    background: rgba(59, 130, 246, 0.15);
+    color: var(--color-acento);
+    border: 1px solid rgba(59, 130, 246, 0.4);
+    padding: 8px 18px;
+    border-radius: 999px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin: 14px 0;
+  }
+
+  .confirmacion .nombre-asistente {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .confirmacion .mensaje-bienvenida {
+    color: var(--color-texto-secundario);
+    line-height: 1.5;
+    margin-bottom: 26px;
+  }
+
+  .oculto {
+    display: none !important;
+  }
+
+  footer {
+    text-align: center;
+    color: var(--color-texto-secundario);
+    font-size: 0.8rem;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="contenedor">
+
+  <div class="logo">
+    <h1>Cumbre Digital <span>Col 2026</span></h1>
+    <p>Transformación digital para PyMEs</p>
+  </div>
+
+  <div class="tarjeta">
+
+    <!-- Formulario de registro -->
+    <form id="formulario-registro" novalidate>
+
+      <div class="campo">
+        <label for="nombre">Nombre completo</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Ej: Ana María Rodríguez">
+        <div class="mensaje-error" id="error-nombre"></div>
+      </div>
+
+      <div class="campo">
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" name="email" placeholder="ejemplo@correo.com">
+        <div class="mensaje-error" id="error-email"></div>
+      </div>
+
+      <div class="campo">
+        <label for="empresa">Empresa u organización</label>
+        <input type="text" id="empresa" name="empresa" placeholder="Ej: Innovatech SAS">
+        <div class="mensaje-error" id="error-empresa"></div>
+      </div>
+
+      <div class="campo">
+        <label for="area">Área de interés</label>
+        <select id="area" name="area">
+          <option value="" selected disabled>Selecciona un área</option>
+          <option value="Tecnología">Tecnología</option>
+          <option value="Marketing">Marketing</option>
+          <option value="Negocios">Negocios</option>
+          <option value="Emprendimiento">Emprendimiento</option>
+        </select>
+        <div class="mensaje-error" id="error-area"></div>
+      </div>
+
+      <button type="submit" class="btn-enviar">Registrarme al evento</button>
+    </form>
+
+    <!-- Pantalla de confirmación (oculta inicialmente) -->
+    <div id="pantalla-confirmacion" class="confirmacion oculto">
+      <div class="icono-exito">✓</div>
+      <h2>¡Registro exitoso!</h2>
+      <div class="numero-registro" id="numero-registro">REG-0000</div>
+      <p class="nombre-asistente" id="nombre-confirmado"></p>
+      <p class="mensaje-bienvenida">
+        Bienvenido(a) a la Cumbre Digital Col 2026. Te esperamos para
+        explorar juntos la transformación digital para PyMEs. ¡Nos vemos
+        en el evento!
+      </p>
+      <button type="button" class="btn-enviar" id="btn-nuevo-registro">
+        Registrar a otra persona
+      </button>
+    </div>
+
+  </div>
+
+  <footer>Cumbre Digital Col 2026 · Registro de asistentes</footer>
+</div>
+
+<script>
+  // Referencias a los elementos del DOM
+  const formulario = document.getElementById('formulario-registro');
+  const pantallaConfirmacion = document.getElementById('pantalla-confirmacion');
+  const numeroRegistroEl = document.getElementById('numero-registro');
+  const nombreConfirmadoEl = document.getElementById('nombre-confirmado');
+  const btnNuevoRegistro = document.getElementById('btn-nuevo-registro');
+
+  const campoNombre = document.getElementById('nombre');
+  const campoEmail = document.getElementById('email');
+  const campoEmpresa = document.getElementById('empresa');
+  const campoArea = document.getElementById('area');
+
+  // Expresión regular simple para validar formato de email
+  const patronEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  // Genera un número de registro con formato REG-XXXX (4 dígitos aleatorios)
+  function generarNumeroRegistro() {
+    const digitos = Math.floor(1000 + Math.random() * 9000); // entre 1000 y 9999
+    return `REG-${digitos}`;
+  }
+
+  // Muestra un mensaje de error en un campo específico
+  function mostrarError(campo, elementoError, mensaje) {
+    campo.classList.add('invalido');
+    elementoError.textContent = mensaje;
+  }
+
+  // Limpia el mensaje de error de un campo específico
+  function limpiarError(campo, elementoError) {
+    campo.classList.remove('invalido');
+    elementoError.textContent = '';
+  }
+
+  // Valida todos los campos del formulario y devuelve true si todo es válido
+  function validarFormulario() {
+    let esValido = true;
+
+    // Validar nombre completo
+    if (campoNombre.value.trim() === '') {
+      mostrarError(campoNombre, document.getElementById('error-nombre'), 'El nombre completo es obligatorio.');
+      esValido = false;
+    } else {
+      limpiarError(campoNombre, document.getElementById('error-nombre'));
+    }
+
+    // Validar email (obligatorio y con formato válido)
+    const email = campoEmail.value.trim();
+    if (email === '') {
+      mostrarError(campoEmail, document.getElementById('error-email'), 'El correo electrónico es obligatorio.');
+      esValido = false;
+    } else if (!patronEmail.test(email)) {
+      mostrarError(campoEmail, document.getElementById('error-email'), 'Ingresa un correo electrónico con formato válido.');
+      esValido = false;
+    } else {
+      limpiarError(campoEmail, document.getElementById('error-email'));
+    }
+
+    // Validar empresa u organización
+    if (campoEmpresa.value.trim() === '') {
+      mostrarError(campoEmpresa, document.getElementById('error-empresa'), 'La empresa u organización es obligatoria.');
+      esValido = false;
+    } else {
+      limpiarError(campoEmpresa, document.getElementById('error-empresa'));
+    }
+
+    // Validar área de interés
+    if (campoArea.value === '') {
+      mostrarError(campoArea, document.getElementById('error-area'), 'Selecciona un área de interés.');
+      esValido = false;
+    } else {
+      limpiarError(campoArea, document.getElementById('error-area'));
+    }
+
+    return esValido;
+  }
+
+  // Maneja el envío del formulario
+  formulario.addEventListener('submit', function (evento) {
+    evento.preventDefault();
+
+    if (!validarFormulario()) {
+      return;
+    }
+
+    // Genera los datos de confirmación
+    const nombreRegistrado = campoNombre.value.trim();
+    const numeroRegistro = generarNumeroRegistro();
+
+    // Actualiza la pantalla de confirmación con los datos del asistente
+    numeroRegistroEl.textContent = numeroRegistro;
+    nombreConfirmadoEl.textContent = `Nombre registrado: ${nombreRegistrado}`;
+
+    // Oculta el formulario y muestra la confirmación
+    formulario.classList.add('oculto');
+    pantallaConfirmacion.classList.remove('oculto');
+  });
+
+  // Botón para registrar a otra persona: limpia el formulario y lo vuelve a mostrar
+  btnNuevoRegistro.addEventListener('click', function () {
+    formulario.reset();
+
+    // Limpia todos los mensajes de error por si quedaron visibles
+    limpiarError(campoNombre, document.getElementById('error-nombre'));
+    limpiarError(campoEmail, document.getElementById('error-email'));
+    limpiarError(campoEmpresa, document.getElementById('error-empresa'));
+    limpiarError(campoArea, document.getElementById('error-area'));
+
+    pantallaConfirmacion.classList.add('oculto');
+    formulario.classList.remove('oculto');
+  });
+</script>
+
+</body>
+</html>
