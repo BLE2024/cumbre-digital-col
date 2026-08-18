@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registro exitoso - Cumbre Digital Col 2026</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="pagina-centrada">
+<div class="contenedor">
+
+  <div class="logo">
+    <h1>Cumbre Digital <span>Col 2026</span></h1>
+    <p>Transformación digital para PyMEs</p>
+  </div>
+
+  <div class="tarjeta confirmacion">
+    <div class="icono-exito">✓</div>
+    <h2>¡Registro exitoso!</h2>
+    <div class="numero-registro">{{ numero_registro }}</div>
+    <p class="nombre-asistente">Nombre registrado: {{ nombre }}</p>
+    <p class="mensaje-bienvenida">
+      Bienvenido(a) a la Cumbre Digital Col 2026. Te esperamos para
+      explorar juntos la transformación digital para PyMEs. ¡Nos vemos
+      en el evento!
+    </p>
+    <a href="{{ url_for('index') }}" class="btn">Registrar a otra persona</a>
+  </div>
+
+  <footer>Cumbre Digital Col 2026 · Registro de asistentes</footer>
+</div>
+</div>
+</body>
+</html>

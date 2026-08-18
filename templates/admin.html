@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel de administración - Cumbre Digital Col 2026</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="contenedor-ancho">
+
+  <div class="logo">
+    <h1>Cumbre Digital <span>Col 2026</span></h1>
+    <p>Panel de administración de asistentes</p>
+  </div>
+
+  <div class="encabezado-admin">
+    <h2 style="font-size: 1.2rem;">Asistentes registrados</h2>
+    <a href="{{ url_for('index') }}" class="btn btn-secundario" style="width: auto; margin-top: 0; padding: 10px 18px;">
+      + Nuevo registro
+    </a>
+  </div>
+
+  <div class="tarjetas-resumen">
+    <div class="tarjeta-resumen">
+      <div class="numero">{{ total }}</div>
+      <div class="etiqueta">Total registrados</div>
+    </div>
+    {% for area, cantidad in conteo_areas.items() %}
+    <div class="tarjeta-resumen">
+      <div class="numero">{{ cantidad }}</div>
+      <div class="etiqueta">{{ area }}</div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="tabla-contenedor">
+    {% if asistentes %}
+    <table>
+      <thead>
+        <tr>
+          <th>N.º registro</th>
+          <th>Nombre completo</th>
+          <th>Correo electrónico</th>
+          <th>Empresa</th>
+          <th>Área de interés</th>
+          <th>Fecha de registro</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for a in asistentes %}
+        <tr>
+          <td>{{ a.numero_registro }}</td>
+          <td>{{ a.nombre }}</td>
+          <td>{{ a.email }}</td>
+          <td>{{ a.empresa }}</td>
+          <td><span class="etiqueta-area">{{ a.area }}</span></td>
+          <td>{{ a.fecha_registro }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <div class="sin-registros">Todavía no hay asistentes registrados.</div>
+    {% endif %}
+  </div>
+
+  <footer>Cumbre Digital Col 2026 · Registro de asistentes</footer>
+</div>
+</body>
+</html>

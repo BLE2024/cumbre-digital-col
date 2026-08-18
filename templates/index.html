@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cumbre Digital Col 2026 - Registro</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="pagina-centrada">
+<div class="contenedor">
+
+  <div class="logo">
+    <h1>Cumbre Digital <span>Col 2026</span></h1>
+    <p>Transformación digital para PyMEs</p>
+  </div>
+
+  <div class="tarjeta">
+
+    {% if errores %}
+    <div class="alerta-error">
+      Por favor corrige los siguientes errores:
+      <ul style="margin: 8px 0 0 18px;">
+        {% for error in errores %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    <form method="POST" action="{{ url_for('registrar') }}" novalidate>
+
+      <div class="campo">
+        <label for="nombre">Nombre completo</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Ej: Ana María Rodríguez"
+               value="{{ datos.nombre if datos else '' }}">
+      </div>
+
+      <div class="campo">
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" name="email" placeholder="ejemplo@correo.com"
+               value="{{ datos.email if datos else '' }}">
+      </div>
+
+      <div class="campo">
+        <label for="empresa">Empresa u organización</label>
+        <input type="text" id="empresa" name="empresa" placeholder="Ej: Innovatech SAS"
+               value="{{ datos.empresa if datos else '' }}">
+      </div>
+
+      <div class="campo">
+        <label for="area">Área de interés</label>
+        <select id="area" name="area">
+          <option value="" {% if not datos or not datos.area %}selected{% endif %} disabled>Selecciona un área</option>
+          {% for opcion in areas %}
+          <option value="{{ opcion }}" {% if datos and datos.area == opcion %}selected{% endif %}>{{ opcion }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <button type="submit" class="btn">Registrarme al evento</button>
+    </form>
+
+  </div>
+
+  <footer>
+    Cumbre Digital Col 2026 · Registro de asistentes ·
+    <a href="{{ url_for('admin') }}" style="color: var(--color-texto-secundario);">Panel admin</a>
+  </footer>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+# Entorno virtual de Python
+venv/
+__pycache__/
+*.pyc
+.python-version
+
+# Base de datos local (se genera automáticamente al iniciar la app)
+evento.db
+
+# Archivos de Claude Code y MCP
+.claude/
+.playwright-mcp/
+
+# Logs
+*.log
